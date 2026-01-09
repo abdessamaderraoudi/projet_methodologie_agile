@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Espace Enseignant | FSTT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { 
+            --blue-fstt: #003366; 
+            --blue-hover: #004a94;
+            --white: #ffffff;
+            --gray-bg: #f4f7f6;
+            --red-danger: #dc3545;
+        }
+
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: var(--gray-bg); 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+
+        /* Header identique à l'Admin */
+        header { 
+            background: var(--white); 
+            padding: 15px 50px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            border-bottom: 4px solid var(--blue-fstt); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+
+        .header-left h1 { margin: 0; font-size: 1.3rem; color: var(--blue-fstt); }
+
+        .logout-btn { 
+            background: var(--red-danger); 
+            color: white; 
+            padding: 10px 20px; 
+            text-decoration: none; 
+            border-radius: 6px; 
+            font-weight: bold;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logout-btn:hover { background: #c82333; transform: translateY(-2px); }
+
+        /* Layout */
+        main { flex: 1; padding: 30px 50px; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .dashboard-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 2fr; 
+            gap: 30px; 
+            align-items: start;
+        }
+
+        /* Cartes */
+        .card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+
+        h2 { color: var(--blue-fstt); font-size: 1.2rem; margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+        /* Formulaire */
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #444; font-size: 0.9rem; }
+        input, select, textarea { 
+            width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; 
+            border-radius: 6px; box-sizing: border-box; font-family: inherit;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--blue-fstt); outline: none; }
+        
+        .submit-btn { 
+            width: 100%; background: var(--blue-fstt); color: white; border: none; 
+            padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .submit-btn:hover { background: var(--blue-hover); }
+
+        /* Tableau */
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f8f9fa; color: var(--blue-fstt); padding: 12px; text-align: left; border-bottom: 2px solid #eee; }
+        td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+
+        /* Statuts */
+        .status-pill { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
+        .status-en-attente { background: #fff3cd; color: #856404; }
+        .status-en-cours { background: #cfe2ff; color: #084298; }
+        .status-résolu { background: #d1e7dd; color: #0f5132; }
+
+        footer { background: var(--blue-fstt); color: white; text-align: center; padding: 20px; margin-top: auto; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <h1><i class="fas fa-chalkboard-teacher"></i> Espace Enseignant - FST de Tanger</h1>
+        </div>
+        <a href="/logout" class="logout-btn" onclick="return confirmLogout()">
+            <i class="fas fa-sign-out-alt"></i> Déconnexion
+        </a>
+    </header>
+
+    <main>
+        <div class="dashboard-grid">
+            <section class="card">
+                <h2><i class="fas fa-plus-circle"></i> Signaler un incident</h2>
+                <form action="/prof/signaler/{{ user_id }}" method="post">
+                    <label for="type_inc">Catégorie :</label>
+                    <select name="type_inc" id="type_inc" required>
+                        <option value="">-- Sélectionner --</option>
+                        <option value="Matériel">Matériel (Vidéoprojecteur, PC...)</option>
+                        <option value="Logiciel">Logiciel / Système</option>
+                        <option value="Réseau">Réseau / Wi-Fi</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+
+                    <label for="salle">Localisation (Salle) :</label>
+                    <input type="text" name="salle" id="salle" placeholder="Ex: Salle B12" required>
+
+                    <label for="desc">Description détaillée :</label>
+                    <textarea name="desc" id="desc" rows="4" placeholder="Décrivez le problème rencontré..." required></textarea>
+
+                    <button type="submit" class="submit-btn">Envoyer le signalement</button>
+                </form>
+            </section>
+
+            <section class="card">
+                <h2><i class="fas fa-history"></i> Suivi de mes demandes</h2>
+                {% if incidents %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Salle</th>
+                            <th>Statut</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for inc in incidents %}
+                        <tr>
+                            <td>#{{ inc.id }}</td>
+                            <td>{{ inc.type_inc }}</td>
+                            <td><strong>{{ inc.salle }}</strong></td>
+                            <td>
+                                <span class="status-pill status-{{ inc.statut|lower|replace(' ', '-') }}">
+                                    {{ inc.statut }}
+                                </span>
+                            </td>
+                            <td style="color: #666; font-size: 0.8rem;">
+                                {{ inc.date_creation.strftime('%d/%m/%Y') if inc.date_creation else 'N/A' }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div style="text-align: center; color: #999; padding: 40px;">
+                    <i class="fas fa-clipboard-check fa-3x" style="margin-bottom: 15px; opacity: 0.3;"></i>
+                    <p>Vous n'avez aucun incident signalé.</p>
+                </div>
+                {% endif %}
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Faculté des Sciences et Techniques de Tanger - Support Technique
+    </footer>
+
+    <script>
+        // --- SÉCURITÉ ANTI-RETOUR ---
+        (function() {
+            window.history.pushState(null, null, window.location.href);
+            window.addEventListener('popstate', function() {
+                window.history.pushState(null, null, window.location.href);
+                alert('Session active : veuillez utiliser le bouton Déconnexion pour quitter.');
+            });
+        })();
+
+        window.onpageshow = function(event) {
+            if (event.persisted) { window.location.reload(); }
+        };
+
+        function confirmLogout() {
+            return confirm('Voulez-vous vraiment fermer votre session ?');
+        }
+
+        // Bloquer Backspace hors champs saisie
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace') {
+                const tag = e.target.tagName.toLowerCase();
+                if (tag !== 'input' && tag !== 'textarea') { e.preventDefault(); }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription | FSTT Incidents</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { 
+            --blue-fstt: #003366; 
+            --blue-hover: #004a94;
+            --green-fstt: #27ae60;
+            --white: #ffffff;
+            --gray-bg: #f4f7f6;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--gray-bg); 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+
+        /* Header identique au Login */
+        header { 
+            background: var(--white); 
+            padding: 15px 50px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            border-bottom: 4px solid var(--blue-fstt); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+
+        .logo-section h1 { 
+            margin: 0; 
+            font-size: 1.2rem; 
+            color: var(--blue-fstt); 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Conteneur Principal */
+        main { 
+            flex: 1; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 40px 20px; 
+        }
+
+        .register-card { 
+            background: var(--white); 
+            padding: 40px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 450px; 
+            animation: fadeInScale 0.6s ease-out; 
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h2 { 
+            color: var(--blue-fstt); 
+            text-align: center; 
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* Formulaire */
+        .input-group { margin-bottom: 20px; position: relative; }
+        .input-group i { 
+            position: absolute; 
+            left: 15px; 
+            top: 15px; 
+            color: var(--blue-fstt); 
+        }
+
+        input, select { 
+            width: 100%; 
+            padding: 12px 12px 12px 45px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 1rem; 
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+        }
+
+        input:focus, select:focus { 
+            border-color: var(--blue-fstt); 
+            background-color: var(--white);
+            outline: none; 
+            box-shadow: 0 0 8px rgba(0,51,102,0.15); 
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            background: var(--blue-fstt); 
+            color: var(--white); 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 1.1rem; 
+            font-weight: bold;
+            cursor: pointer; 
+            transition: 0.3s; 
+            margin-top: 10px;
+        }
+
+        button:hover { 
+            background: var(--blue-hover); 
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,51,102,0.3);
+        }
+
+        .footer-link { 
+            text-align: center; 
+            margin-top: 25px; 
+            font-size: 0.95rem; 
+            color: #555;
+        }
+
+        .footer-link a { 
+            color: var(--blue-fstt); 
+            text-decoration: none; 
+            font-weight: bold; 
+        }
+
+        .footer-link a:hover { text-decoration: underline; }
+
+        /* Footer */
+        footer { 
+            background: var(--blue-fstt); 
+            color: var(--white); 
+            text-align: center; 
+            padding: 20px; 
+            font-size: 0.85rem; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-section">
+            <h1><i class="fas fa-university"></i> FST Tanger</h1>
+        </div>
+        <div class="header-right">
+            <span style="color: #666; font-size: 0.9rem;">Système de Gestion Technique</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="register-card">
+            <h2>Inscription</h2>
+            <p class="subtitle">Créez votre compte pour accéder aux services de maintenance.</p>
+            
+            <form action="/register" method="post">
+                <label for="username">Identifiant Académique</label>
+                <div class="input-group">
+                    <i class="fas fa-user-circle"></i>
+                    <input type="text" id="username" name="username" placeholder="ex: p.nom" required>
+                </div>
+
+                <label for="password">Mot de passe</label>
+                <div class="input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <label for="role">Fonction / Rôle</label>
+                <div class="input-group">
+                    <i class="fas fa-briefcase"></i>
+                    <select id="role" name="role" required>
+                        <option value="" disabled selected>Sélectionnez votre rôle</option>
+                        <option value="professeur">Enseignant (Professeur)</option>
+                        <option value="chef">Administration (Chef de département)</option>
+                    </select>
+                </div>
+
+                <button type="submit">Finaliser l'inscription</button>
+            </form>
+
+            <div class="footer-link">
+                Déjà inscrit ? <a href="/">Se connecter au portail</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Faculté des Sciences et Techniques de Tanger - Université Abdelmalek Essaâdi
+    </footer>
+
+</body>
+</html>

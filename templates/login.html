@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion | FSTT Incidents</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --blue-fstt: #003366; --gold-fstt: #c5a059; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        header { background: white; padding: 15px 50px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid var(--blue-fstt); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .logo-text h1 { margin: 0; font-size: 1.2rem; color: var(--blue-fstt); }
+        
+        main { flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px; }
+        .login-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 400px; animation: fadeInUp 0.8s ease; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        h2 { color: var(--blue-fstt); text-align: center; margin-bottom: 30px; }
+        .input-group { margin-bottom: 20px; position: relative; }
+        .input-group i { position: absolute; left: 15px; top: 12px; color: #888; }
+        input { width: 100%; padding: 12px 12px 12px 45px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1rem; transition: 0.3s; }
+        input:focus { border-color: var(--blue-fstt); outline: none; box-shadow: 0 0 8px rgba(0,51,102,0.2); }
+        
+        button { width: 100%; padding: 12px; background: var(--blue-fstt); color: white; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #004a94; transform: scale(1.02); }
+        
+        footer { background: var(--blue-fstt); color: white; text-align: center; padding: 20px; font-size: 0.9rem; }
+        .error-msg { background: #fee2e2; color: #dc2626; padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-section">
+            <div class="logo-text"><h1>FST de Tanger - Gestion des Incidents</h1></div>
+        </div>
+        <nav><a href="/register" style="color: var(--blue-fstt); text-decoration: none; font-weight: bold;">Inscription</a></nav>
+    </header>
+
+    <main>
+        <div class="login-card">
+            <h2>Portail de Connexion</h2>
+            {% if request.query_params.get('error') %}
+            <div class="error-msg">Identifiants incorrects. Veuillez réessayer.</div>
+            {% endif %}
+            <form action="/login" method="post">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" placeholder="Mot de passe" required>
+                </div>
+                <button type="submit">Se connecter</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Faculté des Sciences et Techniques de Tanger - Service Technique
+    </footer>
+</body>
+</html>
