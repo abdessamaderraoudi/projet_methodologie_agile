@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 # Modifiez les accès selon votre config MySQL
 # Format sans mot de passe : mysql+pymysql://root@localhost/fstt_incidents
-URL_DATABASE = "mysql+pymysql://root@localhost/fstt_incidents"
+URL_DATABASE = "mysql+pymysql://root@localhost/incidents_db"
 
 engine = create_engine(URL_DATABASE)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -3,62 +3,385 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion | FSTT Incidents</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Connexion - FSTT Gestion des Incidents</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
     <style>
-        :root { --blue-fstt: #003366; --gold-fstt: #c5a059; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
-        header { background: white; padding: 15px 50px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid var(--blue-fstt); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .logo-section { display: flex; align-items: center; gap: 15px; }
-        .logo-text h1 { margin: 0; font-size: 1.2rem; color: var(--blue-fstt); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
-        main { flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px; }
-        .login-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 400px; animation: fadeInUp 0.8s ease; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        body {
+            font-family: 'Arial', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 50%, #2d3748 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
         
-        h2 { color: var(--blue-fstt); text-align: center; margin-bottom: 30px; }
-        .input-group { margin-bottom: 20px; position: relative; }
-        .input-group i { position: absolute; left: 15px; top: 12px; color: #888; }
-        input { width: 100%; padding: 12px 12px 12px 45px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1rem; transition: 0.3s; }
-        input:focus { border-color: var(--blue-fstt); outline: none; box-shadow: 0 0 8px rgba(0,51,102,0.2); }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
+        }
         
-        button { width: 100%; padding: 12px; background: var(--blue-fstt); color: white; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #004a94; transform: scale(1.02); }
+        .login-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
         
-        footer { background: var(--blue-fstt); color: white; text-align: center; padding: 20px; font-size: 0.9rem; }
-        .error-msg { background: #fee2e2; color: #dc2626; padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
+        .login-left {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            position: relative;
+        }
+        
+        .login-left::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        
+        .logo-section {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 40px;
+        }
+
+        /* Style pour le logo PNG */
+        .logo-container {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .logo-img {
+            width: 300px;
+            height: 300px;
+            object-fit: contain;
+            padding: 0px;
+            border-radius: 0px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo-section h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo-section .university {
+            font-size: 18px;
+            color: #cbd5e0;
+            font-weight: 300;
+            margin-bottom: 5px;
+        }
+        
+        .logo-section .subtitle {
+            font-size: 14px;
+            color: #a0aec0;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+        
+        .features {
+            position: relative;
+            z-index: 1;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .feature-text {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .login-right {
+            padding: 60px 50px;
+            background: white;
+        }
+        
+        .login-header {
+            margin-bottom: 40px;
+        }
+        
+        .login-header h2 {
+            color: #1a365d;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .login-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        .error-message {
+            background: #fff5f5;
+            border-left: 4px solid #c53030;
+            color: #742a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #f7fafc;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #2c5282;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(44, 82, 130, 0.1);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 4px 14px rgba(26, 54, 93, 0.4);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 54, 93, 0.5);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e2e8f0;
+        }
+        
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            color: #a0aec0;
+            font-size: 13px;
+            position: relative;
+        }
+        
+        .register-link {
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        .register-link a {
+            color: #2c5282;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .register-link a:hover {
+            color: #1a365d;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .login-wrapper {
+                grid-template-columns: 1fr;
+            }
+            
+            .login-left {
+                padding: 40px 30px;
+            }
+            
+            .login-right {
+                padding: 40px 30px;
+            }
+            
+            .logo-section h1 {
+                font-size: 24px;
+            }
+
+            .logo-img {
+                width: 100px;
+                height: 100px;
+            }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo-section">
-            <div class="logo-text"><h1>FST de Tanger - Gestion des Incidents</h1></div>
+    <div class="login-wrapper">
+        <div class="login-left">
+            <div class="logo-section">
+                <!-- LOGO PNG - Placez votre fichier fstt_logo.png dans le même dossier -->
+                <div class="logo-container">
+                    <img src="static/fstt_logo.png" alt="Logo FSTT" class="logo-img">
+                </div>
+                
+                <div class="university">Université Abdelmalek Essaâdi</div>
+                <h1>FSTT</h1>
+                <div class="subtitle">Faculté des Sciences et Techniques de Tanger</div>
+                <div class="subtitle" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+                    Système de Gestion des Incidents Techniques
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-text">
+                        <strong>Accès sécurisé</strong><br>
+                        Connexion protégée pour tous les utilisateurs
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-text">
+                        <strong>Traitement rapide</strong><br>
+                        Signalement et suivi en temps réel
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">
+                        <strong>Suivi transparent</strong><br>
+                        Visibilité complète sur vos demandes
+                    </div>
+                </div>
+            </div>
         </div>
-        <nav><a href="/register" style="color: var(--blue-fstt); text-decoration: none; font-weight: bold;">Inscription</a></nav>
-    </header>
-
-    <main>
-        <div class="login-card">
-            <h2>Portail de Connexion</h2>
-            {% if request.query_params.get('error') %}
-            <div class="error-msg">Identifiants incorrects. Veuillez réessayer.</div>
-            {% endif %}
+        
+        <div class="login-right">
+            <div class="login-header">
+                <h2>Connexion</h2>
+                <p>Accédez à votre espace personnel</p>
+            </div>
+            
+            <div id="errorMessage" class="error-message">
+                ⚠️ Nom d'utilisateur ou mot de passe incorrect
+            </div>
+            
             <form action="/login" method="post">
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" id="username" name="username" required autofocus placeholder="Votre nom d'utilisateur">
                 </div>
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="password" placeholder="Mot de passe" required>
+                
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required placeholder="Votre mot de passe">
                 </div>
-                <button type="submit">Se connecter</button>
+                
+                <button type="submit" class="submit-btn">Se connecter</button>
             </form>
+            
+            <div class="divider">
+                <span>ou</span>
+            </div>
+            
+            <div class="register-link">
+                Nouveau sur la plateforme ? <a href="/register">Créer un compte</a>
+            </div>
         </div>
-    </main>
-
-    <footer>
-        &copy; 2026 Faculté des Sciences et Techniques de Tanger - Service Technique
-    </footer>
+    </div>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('error') === '1') {
+            document.getElementById('errorMessage').classList.add('show');
+        }
+        
+        window.onload = function() {
+            if (performance.navigation.type === 2) {
+                window.location.reload();
+            }
+        };
+    </script>
 </body>
 </html>

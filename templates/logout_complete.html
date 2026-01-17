@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déconnexion - FSTT</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 50%, #2d3748 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .logout-container {
+            background: white;
+            padding: 60px 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #d1fae5 0%, #6ee7b7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin: 0 auto 30px;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .logout-container h1 {
+            color: #1a365d;
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .logout-container p {
+            color: #718096;
+            margin-bottom: 35px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        
+        .university-info {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .university-info .university-name {
+            color: #1a365d;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .university-info .fstt {
+            color: #2c5282;
+            font-size: 14px;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 14px rgba(26, 54, 93, 0.3);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 54, 93, 0.4);
+        }
+        
+        .countdown {
+            margin-top: 25px;
+            color: #a0aec0;
+            font-size: 14px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .countdown strong {
+            color: #2c5282;
+        }
+    </style>
+</head>
+<body>
+    <div class="logout-container">
+        <div class="success-icon">✓</div>
+        <h1>Déconnexion réussie</h1>
+        <p>Vous avez été déconnecté avec succès de la plateforme de gestion des incidents.</p>
+        
+        <div class="university-info">
+            <div class="university-name">Université Abdelmalek Essaâdi</div>
+            <div class="fstt">Faculté des Sciences et Techniques de Tanger</div>
+        </div>
+        
+        <a href="/" class="login-btn">Retour à la connexion</a>
+        
+        <div class="countdown">
+            Redirection automatique dans <strong><span id="counter">5</span> secondes</strong>...
+        </div>
+    </div>
+    
+    <script>
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function() {
+            window.history.pushState(null, "", window.location.href);
+        };
+        
+        let seconds = 5;
+        const counterElement = document.getElementById('counter');
+        
+        const countdown = setInterval(() => {
+            seconds--;
+            counterElement.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                window.location.href = '/';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

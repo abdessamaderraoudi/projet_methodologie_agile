@@ -3,210 +3,537 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>Espace Enseignant | FSTT</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Espace Professeur - FSTT</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
     <style>
-        :root { 
-            --blue-fstt: #003366; 
-            --blue-hover: #004a94;
-            --white: #ffffff;
-            --gray-bg: #f4f7f6;
-            --red-danger: #dc3545;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            background: var(--gray-bg); 
-            margin: 0; 
-            display: flex; 
-            flex-direction: column; 
-            min-height: 100vh; 
+        
+        body {
+            font-family: 'Arial', 'Helvetica Neue', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
         }
-
-        /* Header identique à l'Admin */
-        header { 
-            background: var(--white); 
-            padding: 15px 50px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            border-bottom: 4px solid var(--blue-fstt); 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        
+        .navbar {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+            padding: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-
-        .header-left h1 { margin: 0; font-size: 1.3rem; color: var(--blue-fstt); }
-
-        .logout-btn { 
-            background: var(--red-danger); 
-            color: white; 
-            padding: 10px 20px; 
-            text-decoration: none; 
-            border-radius: 6px; 
-            font-weight: bold;
-            transition: 0.3s;
+        
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+        }
+        
+        .navbar-brand {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 15px;
         }
-        .logout-btn:hover { background: #c82333; transform: translateY(-2px); }
-
-        /* Layout */
-        main { flex: 1; padding: 30px 50px; animation: fadeIn 0.8s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .dashboard-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 2fr; 
-            gap: 30px; 
-            align-items: start;
-        }
-
-        /* Cartes */
-        .card { 
-            background: white; 
-            padding: 25px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
-        }
-
-        h2 { color: var(--blue-fstt); font-size: 1.2rem; margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-
-        /* Formulaire */
-        label { display: block; margin-bottom: 8px; font-weight: 600; color: #444; font-size: 0.9rem; }
-        input, select, textarea { 
-            width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; 
-            border-radius: 6px; box-sizing: border-box; font-family: inherit;
-        }
-        input:focus, select:focus, textarea:focus { border-color: var(--blue-fstt); outline: none; }
         
-        .submit-btn { 
-            width: 100%; background: var(--blue-fstt); color: white; border: none; 
-            padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        .navbar-brand h1 {
+            font-size: 24px;
+            font-weight: 700;
         }
-        .submit-btn:hover { background: var(--blue-hover); }
-
-        /* Tableau */
-        table { width: 100%; border-collapse: collapse; }
-        th { background: #f8f9fa; color: var(--blue-fstt); padding: 12px; text-align: left; border-bottom: 2px solid #eee; }
-        td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-
-        /* Statuts */
-        .status-pill { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
-        .status-en-attente { background: #fff3cd; color: #856404; }
-        .status-en-cours { background: #cfe2ff; color: #084298; }
-        .status-résolu { background: #d1e7dd; color: #0f5132; }
-
-        footer { background: var(--blue-fstt); color: white; text-align: center; padding: 20px; margin-top: auto; font-size: 0.9rem; }
+        
+        .navbar-subtitle {
+            font-size: 12px;
+            color: #cbd5e0;
+        }
+        
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-info {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .user-role {
+            font-size: 12px;
+            color: #cbd5e0;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        
+        .page-header {
+            margin-bottom: 30px;
+        }
+        
+        .page-header h2 {
+            color: #1a365d;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .page-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+            padding: 20px 25px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .card-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: #f7fafc;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2c5282;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(44, 82, 130, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .file-upload-area {
+            border: 2px dashed #cbd5e0;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            background: #f7fafc;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-upload-area:hover {
+            border-color: #2c5282;
+            background: #edf2f7;
+        }
+        
+        .file-upload-area input[type="file"] {
+            display: none;
+        }
+        
+        .file-upload-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .file-upload-text {
+            color: #4a5568;
+            font-size: 14px;
+        }
+        
+        .image-preview {
+            margin-top: 15px;
+            max-width: 100%;
+            border-radius: 8px;
+            display: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 14px rgba(26, 54, 93, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 54, 93, 0.4);
+        }
+        
+        .incidents-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .incidents-table thead {
+            background: #f7fafc;
+        }
+        
+        .incidents-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .incidents-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4a5568;
+            font-size: 14px;
+        }
+        
+        .incidents-table tr:hover {
+            background: #f7fafc;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-attente {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-cours {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .status-termine {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .incident-image {
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .incident-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #a0aec0;
+        }
+        
+        .empty-state-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .modal-content {
+            margin: 5% auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 50px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: #cbd5e0;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="header-left">
-            <h1><i class="fas fa-chalkboard-teacher"></i> Espace Enseignant - FST de Tanger</h1>
-        </div>
-        <a href="/logout" class="logout-btn" onclick="return confirmLogout()">
-            <i class="fas fa-sign-out-alt"></i> Déconnexion
-        </a>
-    </header>
-
-    <main>
-        <div class="dashboard-grid">
-            <section class="card">
-                <h2><i class="fas fa-plus-circle"></i> Signaler un incident</h2>
-                <form action="/prof/signaler/{{ user_id }}" method="post">
-                    <label for="type_inc">Catégorie :</label>
-                    <select name="type_inc" id="type_inc" required>
-                        <option value="">-- Sélectionner --</option>
-                        <option value="Matériel">Matériel (Vidéoprojecteur, PC...)</option>
-                        <option value="Logiciel">Logiciel / Système</option>
-                        <option value="Réseau">Réseau / Wi-Fi</option>
-                        <option value="Autre">Autre</option>
-                    </select>
-
-                    <label for="salle">Localisation (Salle) :</label>
-                    <input type="text" name="salle" id="salle" placeholder="Ex: Salle B12" required>
-
-                    <label for="desc">Description détaillée :</label>
-                    <textarea name="desc" id="desc" rows="4" placeholder="Décrivez le problème rencontré..." required></textarea>
-
-                    <button type="submit" class="submit-btn">Envoyer le signalement</button>
-                </form>
-            </section>
-
-            <section class="card">
-                <h2><i class="fas fa-history"></i> Suivi de mes demandes</h2>
-                {% if incidents %}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Type</th>
-                            <th>Salle</th>
-                            <th>Statut</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for inc in incidents %}
-                        <tr>
-                            <td>#{{ inc.id }}</td>
-                            <td>{{ inc.type_inc }}</td>
-                            <td><strong>{{ inc.salle }}</strong></td>
-                            <td>
-                                <span class="status-pill status-{{ inc.statut|lower|replace(' ', '-') }}">
-                                    {{ inc.statut }}
-                                </span>
-                            </td>
-                            <td style="color: #666; font-size: 0.8rem;">
-                                {{ inc.date_creation.strftime('%d/%m/%Y') if inc.date_creation else 'N/A' }}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% else %}
-                <div style="text-align: center; color: #999; padding: 40px;">
-                    <i class="fas fa-clipboard-check fa-3x" style="margin-bottom: 15px; opacity: 0.3;"></i>
-                    <p>Vous n'avez aucun incident signalé.</p>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">
+                <div>
+                    <h1>FSTT</h1>
                 </div>
-                {% endif %}
-            </section>
+            </div>
+            <div class="navbar-user">
+                <div class="user-info">
+                    <div class="user-name">{{ user.nom_complet }}</div>
+                    <div class="user-role">Professeur</div>
+                </div>
+                <a href="/logout">
+                    <button class="logout-btn">Déconnexion</button>
+                </a>
+            </div>
         </div>
-    </main>
-
-    <footer>
-        &copy; 2026 Faculté des Sciences et Techniques de Tanger - Support Technique
-    </footer>
-
+    </nav>
+    
+    <div class="container">
+        <div class="page-header">
+            <h2></h2>
+        </div>
+        
+        <div class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3>📝 Signaler un incident</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/prof/signaler/{{ user_id }}" method="post" enctype="multipart/form-data" id="incidentForm">
+                        <div class="form-group">
+                            <label for="type_inc">Type d'incident *</label>
+                            <select name="type_inc" id="type_inc" required>
+                                <option value="">Sélectionner le type</option>
+                                <option value="Vidéoprojecteur">📽️ Vidéoprojecteur</option>
+                                <option value="Climatisation">❄️ Climatisation</option>
+                                <option value="Ordinateur">💻 Ordinateur</option>
+                                <option value="Connexion Internet">🌐 Connexion Internet</option>
+                                <option value="Tableau">📋 Tableau</option>
+                                <option value="Éclairage">💡 Éclairage</option>
+                                <option value="Mobilier">🪑 Mobilier</option>
+                                <option value="Autre">⚙️ Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="salle">Salle concernée *</label>
+                            <input type="text" name="salle" id="salle" placeholder="Ex: Salle A101, Amphi 1..." required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="desc">Description détaillée *</label>
+                            <textarea name="desc" id="desc" placeholder="Décrivez le problème rencontré de manière précise..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Photo (optionnel)</label>
+                            <label for="image" class="file-upload-area">
+                                <div class="file-upload-icon">📷</div>
+                                <div class="file-upload-text">
+                                    <strong>Cliquez pour ajouter une photo</strong><br>
+                                    <small>JPG, PNG, JPEG - Max 5MB</small>
+                                </div>
+                                <input type="file" name="image" id="image" accept="image/*">
+                            </label>
+                            <img id="imagePreview" class="image-preview" alt="Aperçu">
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Envoyer le signalement</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>📊 Mes incidents signalés</h3>
+                </div>
+                <div class="card-body" style="padding: 0;">
+                    {% if incidents %}
+                    <table class="incidents-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Salle</th>
+                                <th>Description</th>
+                                <th>Photo</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for inc in incidents %}
+                            <tr>
+                                <td style="white-space: nowrap;">{{ inc.date_creation.strftime('%d/%m/%Y<br>%H:%M') | safe }}</td>
+                                <td><strong>{{ inc.type_inc }}</strong></td>
+                                <td>{{ inc.salle }}</td>
+                                <td>{{ inc.description[:60] }}{% if inc.description|length > 60 %}...{% endif %}</td>
+                                <td>
+                                    {% if inc.image_path %}
+                                    <img src="{{ inc.image_path }}" class="incident-image" onclick="openModal('{{ inc.image_path }}')">
+                                    {% else %}
+                                    <span style="color: #a0aec0;">—</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if inc.statut == "En attente" %}
+                                    <span class="status-badge status-attente">⏳ {{ inc.statut }}</span>
+                                    {% elif inc.statut == "En cours" %}
+                                    <span class="status-badge status-cours">🔧 {{ inc.statut }}</span>
+                                    {% else %}
+                                    <span class="status-badge status-termine">✅ {{ inc.statut }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <h3 style="color: #4a5568; margin-bottom: 8px;">Aucun incident</h3>
+                        <p>Vous n'avez signalé aucun incident pour le moment.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+    
     <script>
-        // --- SÉCURITÉ ANTI-RETOUR ---
-        (function() {
-            window.history.pushState(null, null, window.location.href);
-            window.addEventListener('popstate', function() {
-                window.history.pushState(null, null, window.location.href);
-                alert('Session active : veuillez utiliser le bouton Déconnexion pour quitter.');
-            });
-        })();
-
-        window.onpageshow = function(event) {
-            if (event.persisted) { window.location.reload(); }
+        setInterval(async () => {
+            const response = await fetch('/check-session/{{ user_id }}');
+            if (!response.ok) {
+                window.location.href = '/';
+            }
+        }, 30000);
+        
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function() {
+            window.history.pushState(null, "", window.location.href);
         };
-
-        function confirmLogout() {
-            return confirm('Voulez-vous vraiment fermer votre session ?');
-        }
-
-        // Bloquer Backspace hors champs saisie
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Backspace') {
-                const tag = e.target.tagName.toLowerCase();
-                if (tag !== 'input' && tag !== 'textarea') { e.preventDefault(); }
+        
+        document.getElementById('image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            const uploadArea = document.querySelector('.file-upload-area');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    uploadArea.querySelector('.file-upload-text').innerHTML = 
+                        '<strong style="color: #2c5282;">✓ ' + file.name + '</strong><br><small>Cliquez pour changer</small>';
+                }
+                reader.readAsDataURL(file);
             }
         });
+        
+        function openModal(imageSrc) {
+            document.getElementById('imageModal').style.display = 'block';
+            document.getElementById('modalImage').src = imageSrc;
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
     </script>
 </body>
 </html>
